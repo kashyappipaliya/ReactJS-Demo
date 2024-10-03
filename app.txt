@@ -1,0 +1,69 @@
+import './App.css';
+// import About from './components/About';
+import Navbar from './components/Navbar';
+import TextForm from './components/TextForm'; // Ensure TextForm is imported correctly
+import React, { useState } from 'react';
+import Alert from './components/Alert';
+function App() {
+    const [mode, setMode] = useState('light'); //whether dark mode is enabled or not
+    const [greenmode, setGreenMode] = useState('greenlight');
+    const [alert, setAlert] = useState(null); //Alert no one of object create kariye chiye //setalert usestate ander value set karshe
+
+    //message leshe type of alert leshe //showalert function help karshe alert message ne
+      const showAlert = (message, type) => {
+        setAlert({
+          msg: message,
+          type: type,
+        });
+          // Optional: Clear the alert after a few seconds
+        setTimeout(() => {
+          setAlert(null);
+        }, 1500); // Adjust duration as needed
+      };
+    
+   const toToggleMode = () => {
+    if (mode === 'light')
+    {
+      setMode('dark');
+      document.body.style.backgroundColor = '#042743';
+      showAlert("Dark Mode Has Been Enabled", "success");
+    } 
+    else 
+    {
+      setMode('light');
+      document.body.style.backgroundColor = 'white';
+      showAlert("Light Mode Has Been Enabled", "success");
+    }
+
+    const toGreenToggleMode = () => {
+    if (mode === 'greenlight')
+    {
+      setMode('darkgreen');
+      document.body.style.backgroundColor = '#darkgreen';
+      showAlert("Dark Mode Has Been Enabled", "success");
+    } 
+    else 
+    {
+      setMode('lightgreen');
+      document.body.style.backgroundColor = 'lightgreen';
+      showAlert("Light Mode Has Been Enabled", "success");
+    }
+  };
+  return (
+    <>  
+      {/* Example of a title="ReactJS Demo" One type of PROPS */}
+      <Navbar title="ReactJS Demo" aboutText="About Us" mode ={mode} toToggleMode ={toToggleMode} toGreenToggleMode = {toGreenToggleMode}/>
+      <Alert alert={alert}/>
+      {/* <Navbar /> DefaulProptype props not passing in a components */}
+      <div className="container my-3">
+           <TextForm showAlert = {showAlert} heading="Enter The Text to Analyze Below :-" mode ={mode} greenmode={greenmode}  />
+           {/* <About></About> */}
+      </div>
+      
+     
+    </>
+  );
+}
+
+export default App;
+
